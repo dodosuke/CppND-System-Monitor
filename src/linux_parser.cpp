@@ -67,10 +67,29 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { return 0.0; }
+float LinuxParser::MemoryUtilization() {
+  string line;
+  string key;
+  string value;
+  float memTotal {1};
+  float memFree {0};
+  std::ifstream filestream(kProcDirectory + kMeminfoFilename);
+  if (filestream.is_open()) {
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      while (linestream >> key >> value) {
+        if (key == "MemTotal:") {
+          memTotal = std::stof(value);
+        } 
+        if (key == "MemFree:") {
+          memFree = std::stod(value);
+        }
+      }
+    }
+  }
+  return (memTotal-memFree)/memTotal;
+}
 
-// TODO: Read and return the system uptime
 long LinuxParser::UpTime() {
   string uptime, idle;
   string line;
@@ -80,8 +99,7 @@ long LinuxParser::UpTime() {
     std::istringstream linestream(line);
     linestream >> uptime >> idle;
   }
-  long uptimeLong = std::stol(uptime);
-  return uptimeLong;
+  return std::stol(uptime);
 }
 
 // TODO: Read and return the number of jiffies for the system
@@ -100,7 +118,6 @@ long LinuxParser::IdleJiffies() { return 0; }
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
 
-// TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() {
   string line;
   string key;
@@ -111,12 +128,12 @@ int LinuxParser::TotalProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "processes") {
-          return std::stoi(value);
+          return stoi(value);
         }
       }
     }
   }
-  return std::stoi(value);
+  return stoi(value);
 }
 
 int LinuxParser::RunningProcesses() {
@@ -129,12 +146,12 @@ int LinuxParser::RunningProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "procs_running") {
-          return std::stoi(value);
+          return stoi(value);
         }
       }
     }
   }
-  return std::stoi(value);
+  return stoi(value);
 }
 
 // TODO: Read and return the command associated with a process
