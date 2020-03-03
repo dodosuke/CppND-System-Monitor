@@ -18,5 +18,5 @@ string Format::ElapsedTime(long seconds) {
 	int mm = (seconds % 3600) / 60;
 	int ss = seconds % 60;
 	
-	return to_string(hh) + ":" + formatted(mm) + ":" + formatted(ss);
+	return formatted(hh) + ":" + formatted(mm) + ":" + formatted(ss);
 }
