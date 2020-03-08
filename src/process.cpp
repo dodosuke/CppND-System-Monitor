@@ -16,7 +16,7 @@ using std::stoi;
 Process::Process(int pid) : pid_(pid) {
 	stats_ = LinuxParser::ProcStat(pid);
 	command_ = LinuxParser::Command(pid);
-	ram_ = to_string(stoi(LinuxParser::Ram(pid_))/1024);
+	ram_ = to_string(stoi(LinuxParser::Ram(pid))/1024);
 	user_ = LinuxParser::User(pid);
 	uptime_ = stoi(stats_[21]) / sysconf(_SC_CLK_TCK);
 	

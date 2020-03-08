@@ -186,7 +186,7 @@ string LinuxParser::Ram(int pid) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
-        if (key == "vmSize:") {
+        if (key == "VmSize:") {
           return value;
         }
       }
