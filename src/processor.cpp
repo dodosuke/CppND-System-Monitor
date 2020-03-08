@@ -11,8 +11,8 @@ float Processor::Utilization() {
 	int prevIdle = prevData[LinuxParser::CPUStates::kIdle_] \
 				 + prevData[LinuxParser::CPUStates::kIOwait_];
 	int idle = data[LinuxParser::CPUStates::kIdle_] \
-	         + data[LinuxParser::CPUStates::kIOwait_];
-	
+			 + data[LinuxParser::CPUStates::kIOwait_];
+
 	int prevNonIdle = prevData[LinuxParser::CPUStates::kUser_] \
 					+ prevData[LinuxParser::CPUStates::kNice_] \
 					+ prevData[LinuxParser::CPUStates::kSystem_] \
@@ -28,13 +28,13 @@ float Processor::Utilization() {
 	 
 	int prevTotal = prevIdle + prevNonIdle;
 	int total = idle + nonIdle;
-	
+
 	int totald = total - prevTotal;
 	int idled = idle - prevIdle;
-	
+
 	// Update the data
 	data_ = data;
-	
+
 	return ((float)totald - (float)idled)/(float)totald;	
 }
 

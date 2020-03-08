@@ -5,7 +5,7 @@
 
 class Processor {
  public:
-  float Utilization();  // TODO: See src/processor.cpp
+  float Utilization();  
 
  private:
   std::vector<int> data_ = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
