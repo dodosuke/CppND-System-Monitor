@@ -163,7 +163,7 @@ int LinuxParser::RunningProcesses() {
 string LinuxParser::Command(int pid) { 
   
   string line;
-  std::ifstream filestream(kProcDirectory + "/" + to_string(pid) \
+  std::ifstream filestream(kProcDirectory + to_string(pid) \
                           + kCmdlineFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -180,7 +180,7 @@ string LinuxParser::Ram(int pid) {
   string key;
   string value;
   
-  std::ifstream filestream(kProcDirectory + "/" + to_string(pid) \
+  std::ifstream filestream(kProcDirectory + to_string(pid) \
                           + kStatusFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -201,7 +201,7 @@ string LinuxParser::Uid(int pid) {
   string key;
   string value;
   
-  std::ifstream filestream(kProcDirectory + "/" + to_string(pid) \
+  std::ifstream filestream(kProcDirectory + to_string(pid) \
                           + kStatusFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -253,7 +253,7 @@ vector<string> LinuxParser::ProcStat(int pid) {
   string value;
   vector<string> parsed{};
   
-  std::ifstream filestream(kProcDirectory + "/" + to_string(pid) \
+  std::ifstream filestream(kProcDirectory + to_string(pid) \
                           + kStatFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {

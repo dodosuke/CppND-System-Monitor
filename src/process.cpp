@@ -25,7 +25,7 @@ Process::Process(int pid) : pid_(pid) {
 					 + stoi(stats_[15])
 					 + stoi(stats_[16]);
 	float seconds = LinuxParser::UpTime() - uptime_;
-	cpu_ = 100.0 * (totalTime / sysconf(_SC_CLK_TCK) / seconds);
+	cpu_ = totalTime / sysconf(_SC_CLK_TCK) / seconds;
 }
 
 int Process::Pid() { 
@@ -53,5 +53,5 @@ long int Process::UpTime() {
 }
 
 bool Process::operator<(Process const& a) const { 
-	return CpuUtilization() < a.CpuUtilization();
+	return CpuUtilization() > a.CpuUtilization();
 }

@@ -19,7 +19,7 @@ class Process {
   Process(int pid);
 
  private:
-  const int pid_;
+  int pid_;
   std::vector<std::string> stats_;
   std::string command_;
   std::string ram_;
